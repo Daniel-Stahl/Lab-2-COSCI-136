@@ -6,7 +6,8 @@
 using namespace std;
 
 int RaiseNumberToPower(int num, int pow);
-void SumOfSquaresDescending(int terms, int &sum);
+string SumOfSquaresAscending(int terms, int& sum);
+string SumOfSquaresDescending(int terms, int& sum);
 
 int main() {
     int base;
@@ -47,17 +48,8 @@ int main() {
                 cin >> numTerms;
                 cout << "\n";
                 
-//                for (int x = 0; x < numTerms; x++) {
-//                    if (numTerms - x == 1) {
-//                        outputTerms += "(" + to_string(numTerms - x) + ") ";
-//                    } else {
-//                        outputTerms += "(" + to_string(numTerms - x) + "*" + to_string(numTerms - x) + ") + ";
-//                    }
-//                }
-//
-//                cout << outputTerms << "= " << SumOfSquares(numTerms) << endl;
-                
-                SumOfSquaresDescending(numTerms, sumSquares);
+                sumSquares = 0;
+                cout << SumOfSquaresAscending(numTerms, sumSquares);
                 
                 cout << "\n";
                 
@@ -65,6 +57,10 @@ int main() {
             case 3:
                 cout << "Enter number of terms to add at first" << endl;
                 cin >> numTerms;
+                cout << "\n";
+                
+                sumSquares = 0;
+                cout << SumOfSquaresDescending(numTerms, sumSquares);
                 cout << "\n";
                 
                 break;
@@ -84,26 +80,37 @@ int RaiseNumberToPower(int num, int pow) {
     }
 }
 
-void SumOfSquaresDescending(int terms, int &sum) {
+string SumOfSquaresAscending(int terms, int& sum) {
     string outputTerms;
     
-    if (terms == 0 || terms < 0) {
-        cout << "Cannot use that number, please try again\n" << endl;
+    if (terms == 1) {
+        sum += 1;
+        outputTerms += "1";
     } else {
         sum += terms * terms;
-        SumOfSquaresDescending(terms - 1, sum);
+        SumOfSquaresAscending(terms - 1, sum);
+        outputTerms += " + (" + to_string(terms) + "*" + to_string(terms) + ")";
         
     }
     
-    for (int x = 0; x < terms; x++) {
-        if (terms - x == 1) {
-            outputTerms += "(" + to_string(terms - x) + ") ";
-        } else {
-            outputTerms += "(" + to_string(terms - x) + "*" + to_string(terms - x) + ") + ";
-        }
-    }
-
-    cout << outputTerms << "= " << sum << endl;
+    cout << outputTerms;
+    return " = " + to_string(sum);
 }
 
+string SumOfSquaresDescending(int terms, int& sum) {
+    static string outputTerms;
 
+    if (terms == 1) {
+        sum += 1;
+        cout << "1";
+    } else {
+        sum += terms * terms;
+        cout << "(" + to_string(terms) + "*" + to_string(terms) + ") + ";
+        SumOfSquaresDescending(terms - 1, sum);
+        
+
+    }
+    
+    //cout << outputTerms;
+    return " = " + to_string(sum);
+}
