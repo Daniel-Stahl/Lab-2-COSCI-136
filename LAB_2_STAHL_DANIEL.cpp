@@ -16,10 +16,8 @@ int main() {
     int numTerms;
     int sumSquares = 0;
     
-    cout << "Choose from the menu below" << endl;
-    
     while (userChoice != 4) {
-        cout << "1. Raise the power of a number\n" << "2. Sum of squares\n" << "3. Sum of squares reverse\n" << "4. Quit program\n" << endl;
+        cout << "Main Menu\n" << "1. Raise the power of a number\n" << "2. Sum of squares\n" << "3. Sum of squares reverse\n" << "4. Quit program\n";
         
         cin >> userChoice;
         cout << "\n";
@@ -32,34 +30,48 @@ int main() {
         
             switch (userChoice) {
                 case 1:
-                    
-                    cout << "Enter base: ";
+                    cout << "Enter base number: (enter any letter to go back to the menu)\n";
                     cin >> base;
-                    cout << "Enter power: ";
-                    cin >> power;
                     
-                    cout << RaiseNumberToPower(base, power);
-                    cout << "\n";
+                    if (!cin) {
+                        cin.clear();
+                        cin.ignore(100, '\n');
+                    } else {
+                    
+                        cout << "Enter power: ";
+                        cin >> power;
+                        
+                        cout << "Answer = " << RaiseNumberToPower(base, power);
+                        cout << "\n";
+                    }
                     
                     break;
                 case 2:
-                    cout << "Enter number of terms to add last" << endl;
+                    cout << "Enter number of terms to add last\n(enter a letter to go back to the menu)\n";
                     cin >> numTerms;
-                    cout << "\n";
                     
-                    sumSquares = 0;
-                    cout << SumOfSquaresAscending(numTerms, sumSquares);
-                    cout << "\n";
+                    if (!cin) {
+                        cin.clear();
+                        cin.ignore(100, '\n');
+                    } else {
+                        sumSquares = 0;
+                        cout << SumOfSquaresAscending(numTerms, sumSquares);
+                        cout << "\n";
+                    }
                     
                     break;
                 case 3:
-                    cout << "Enter number of terms to add at first" << endl;
+                    cout << "Enter number of terms to add at first\n(enter a letter to go back to the menu)\n";
                     cin >> numTerms;
-                    cout << "\n";
                     
-                    sumSquares = 0;
-                    cout << SumOfSquaresDescending(numTerms, sumSquares);
-                    cout << "\n";
+                    if (!cin) {
+                        cin.clear();
+                        cin.ignore(100, '\n');
+                    } else {
+                        sumSquares = 0;
+                        cout << SumOfSquaresDescending(numTerms, sumSquares);
+                        cout << "\n";
+                    }
                     
                     break;
             }
@@ -108,16 +120,17 @@ string SumOfSquaresAscending(int terms, int& sum) {
 }
 
 string SumOfSquaresDescending(int terms, int& sum) {
-    static string outputTerms;
+    string outputTerms;
 
     if (terms == 1) {
         sum += 1;
         cout << "1";
     } else {
         sum += terms * terms;
-        cout << "(" + to_string(terms) + "*" + to_string(terms) + ") + ";
+        outputTerms += "(" + to_string(terms) + "*" + to_string(terms) + ") + ";
         SumOfSquaresDescending(terms - 1, sum);
     }
 
+    cout << outputTerms;
     return " = " + to_string(sum);
 }
