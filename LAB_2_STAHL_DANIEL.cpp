@@ -19,10 +19,7 @@ int main() {
     cout << "Choose from the menu below" << endl;
     
     while (userChoice != 4) {
-        cout << "1. Raise the power of a number\n"
-        << "2. Sum of squares\n"
-        << "3. Sum of squares reverse\n"
-        << "4. Quit program\n" << endl;
+        cout << "1. Raise the power of a number\n" << "2. Sum of squares\n" << "3. Sum of squares reverse\n" << "4. Quit program\n" << endl;
         
         cin >> userChoice;
         cout << "\n";
@@ -35,6 +32,7 @@ int main() {
         
             switch (userChoice) {
                 case 1:
+                    
                     cout << "Enter base: ";
                     cin >> base;
                     cout << "Enter power: ";
@@ -71,15 +69,22 @@ int main() {
 
 double RaiseNumberToPower(int num, int pow) {
     static double retNum = 0.0;
-    double test = 0.0;
+    double result = 0.0;
     
     if (pow == 0) {
         return 1;
-    } else if (pow < 0) {
-        retNum += num * RaiseNumberToPower(num, -pow - 1);
-        test = 1 / retNum;
+    } else if (num < 0 && pow < 0) {
+        retNum += num * RaiseNumberToPower(-num, -pow - 1);
+        result = 1 / retNum;
         retNum = 0.0;
-        return test;
+        return result;
+    } else if(num > 0 && pow < 0) {
+        retNum += num * RaiseNumberToPower(num, -pow - 1);
+        result = 1 / retNum;
+        retNum = 0.0;
+        return result;
+    } else if (num < 0 && pow > 0 ) {
+        return num * RaiseNumberToPower(-num, pow - 1);
     } else {
         return num * RaiseNumberToPower(num, pow - 1);
     }
@@ -112,8 +117,6 @@ string SumOfSquaresDescending(int terms, int& sum) {
         sum += terms * terms;
         cout << "(" + to_string(terms) + "*" + to_string(terms) + ") + ";
         SumOfSquaresDescending(terms - 1, sum);
-        
-
     }
 
     return " = " + to_string(sum);
