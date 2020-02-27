@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int RaiseNumberToPower(int num, int pow);
+double RaiseNumberToPower(int num, int pow);
 string SumOfSquaresAscending(int terms, int& sum);
 string SumOfSquaresDescending(int terms, int& sum);
 
@@ -15,11 +15,6 @@ int main() {
     int userChoice;
     int numTerms;
     int sumSquares = 0;
-    //string outputTerms;
-    
-    // Menu
-    // 1. function that asks for base and power
-    // 2.
     
     cout << "Choose from the menu below" << endl;
     
@@ -32,49 +27,59 @@ int main() {
         cin >> userChoice;
         cout << "\n";
         
-        switch (userChoice) {
-            case 1:
-                cout << "Enter base: ";
-                cin >> base;
-                cout << "Enter power: ";
-                cin >> power;
-                
-                cout << RaiseNumberToPower(base, power);
-                cout << "\n";
-                
-                break;
-            case 2:
-                cout << "Enter number of terms to add last" << endl;
-                cin >> numTerms;
-                cout << "\n";
-                
-                sumSquares = 0;
-                cout << SumOfSquaresAscending(numTerms, sumSquares);
-                
-                cout << "\n";
-                
-                break;
-            case 3:
-                cout << "Enter number of terms to add at first" << endl;
-                cin >> numTerms;
-                cout << "\n";
-                
-                sumSquares = 0;
-                cout << SumOfSquaresDescending(numTerms, sumSquares);
-                cout << "\n";
-                
-                break;
-            default:
-                break;
+        if (!cin || userChoice < 1 || userChoice > 4) {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "That is not a valid selection, please try again.\n";
+        } else {
+        
+            switch (userChoice) {
+                case 1:
+                    cout << "Enter base: ";
+                    cin >> base;
+                    cout << "Enter power: ";
+                    cin >> power;
+                    
+                    cout << RaiseNumberToPower(base, power);
+                    cout << "\n";
+                    
+                    break;
+                case 2:
+                    cout << "Enter number of terms to add last" << endl;
+                    cin >> numTerms;
+                    cout << "\n";
+                    
+                    sumSquares = 0;
+                    cout << SumOfSquaresAscending(numTerms, sumSquares);
+                    cout << "\n";
+                    
+                    break;
+                case 3:
+                    cout << "Enter number of terms to add at first" << endl;
+                    cin >> numTerms;
+                    cout << "\n";
+                    
+                    sumSquares = 0;
+                    cout << SumOfSquaresDescending(numTerms, sumSquares);
+                    cout << "\n";
+                    
+                    break;
+            }
         }
     };
 }
 
-int RaiseNumberToPower(int num, int pow) {
+double RaiseNumberToPower(int num, int pow) {
+    static double retNum = 0.0;
+    double test = 0.0;
+    
     if (pow == 0) {
         return 1;
     } else if (pow < 0) {
-        return num * RaiseNumberToPower(num, pow + 1);
+        retNum += num * RaiseNumberToPower(num, -pow - 1);
+        test = 1 / retNum;
+        retNum = 0.0;
+        return test;
     } else {
         return num * RaiseNumberToPower(num, pow - 1);
     }
@@ -110,7 +115,6 @@ string SumOfSquaresDescending(int terms, int& sum) {
         
 
     }
-    
-    //cout << outputTerms;
+
     return " = " + to_string(sum);
 }
