@@ -7,8 +7,8 @@ using namespace std;
 
 void PresentMainMenu();
 double RaiseNumberToPower(int num, int pow);
-string SumOfSquaresAscending(int terms, int& sum);
-string SumOfSquaresDescending(int terms, int& sum);
+int SumOfSquaresAscending(int terms);
+int SumOfSquaresDescending(int terms);
 void RunRaisePowerMenu();
 void RunAscendingMenu();
 void RunDescendingMenu();
@@ -18,7 +18,7 @@ int main() {
 }
 
 void PresentMainMenu() {
-    int userChoice;
+    int userChoice = 0;
     
     while (userChoice != 4) {
         cout << "Main Menu\n" << "1. Raise the power of a number\n" << "2. Sum of squares ascending\n" << "3. Sum of squares descending\n" << "4. Quit program\n";
@@ -50,64 +50,50 @@ void PresentMainMenu() {
     };
 }
 
-double RaiseNumberToPower(int num, int pow) {
-    static double retNum = 0.0;
-    double result = 0.0;
-    
-    if (pow == 0) {
+double RaiseNumberToPower(double num, int pow) {
+    if (num == 0 && pow < 0) {
+        cout << "Undefined, can't divide by ";
+        return 0;
+    } else if (pow == 0) {
         return 1;
-    } else if (num < 0 && pow < 0) {
-        retNum += num * RaiseNumberToPower(-num, -pow - 1);
-        result = 1 / retNum;
-        retNum = 0.0;
-        return result;
-    } else if(num > 0 && pow < 0) {
-        retNum += num * RaiseNumberToPower(num, -pow - 1);
-        result = 1 / retNum;
-        retNum = 0.0;
-        return result;
-    } else if (num < 0 && pow > 0 ) {
-        return num * RaiseNumberToPower(-num, pow - 1);
-    } else {
-        return num * RaiseNumberToPower(num, pow - 1);
-    }
-}
-
-string SumOfSquaresAscending(int terms, int& sum) {
-    string outputTerms;
-    
-    if (terms == 1) {
-        sum += 1;
-        outputTerms += "1";
-    } else {
-        sum += terms * terms;
-        SumOfSquaresAscending(terms - 1, sum);
-        outputTerms += " + (" + to_string(terms) + "*" + to_string(terms) + ")";
-        
+    } else if (pow < 0) {
+        pow = -pow;
+        num = 1/num;
     }
     
-    cout << outputTerms;
-    return " = " + to_string(sum);
+    return num * RaiseNumberToPower(num, pow-1);
 }
 
-string SumOfSquaresDescending(int terms, int& sum) {
-    string outputTerms;
-
+int SumOfSquaresAscending(int terms) {
+    int total = 0;
+    
     if (terms == 1) {
-        sum += 1;
         cout << "1";
+        return 1;
     } else {
-        sum += terms * terms;
-        outputTerms += "(" + to_string(terms) + "*" + to_string(terms) + ") + ";
-        SumOfSquaresDescending(terms - 1, sum);
+        total = terms * terms + SumOfSquaresAscending(terms - 1);
+        cout << " + (" + to_string(terms) + "*" + to_string(terms) + ")";
+    }
+    
+    return total;
+}
+
+int SumOfSquaresDescending(int terms) {
+    int total = 0;
+
+    if (terms == 1) {
+        cout << "1";
+        return 1;
+    } else {
+        cout << "(" + to_string(terms) + "*" + to_string(terms) + ") + ";
+        total = terms * terms + SumOfSquaresDescending(terms - 1);
     }
 
-    cout << outputTerms;
-    return " = " + to_string(sum);
+    return total;
 }
 
 void RunRaisePowerMenu() {
-    int base;
+    double base;
     int power;
     bool exitMenu = false;
     
@@ -131,8 +117,8 @@ void RunRaisePowerMenu() {
 
 void RunAscendingMenu() {
     bool exitMenu = false;
-    int sumSquares;
     int numTerms;
+    int total;
     
     do {
         cout << "Enter number of terms to add last\n(enter a letter to go back to the menu)\n";
@@ -142,9 +128,13 @@ void RunAscendingMenu() {
             cin.clear();
             cin.ignore(100, '\n');
             exitMenu = true;
+        } else if (numTerms < 0) {
+            cout << "Cannot accept negative numbers, please try again.\n";
+            cin.clear();
+            cin.ignore(100, '\n');
         } else {
-            sumSquares = 0;
-            cout << SumOfSquaresAscending(numTerms, sumSquares);
+            total = SumOfSquaresAscending(numTerms);
+            cout << " = " << total;
             cout << "\n";
         }
     } while(exitMenu == false);
@@ -152,8 +142,8 @@ void RunAscendingMenu() {
 
 void RunDescendingMenu() {
     bool exitMenu = false;
-    int sumSquares;
     int numTerms;
+    int total;
     
     do {
         cout << "Enter number of terms to add at first\n(enter a letter to go back to the menu)\n";
@@ -163,9 +153,13 @@ void RunDescendingMenu() {
             cin.clear();
             cin.ignore(100, '\n');
             exitMenu = true;
+        } else if (numTerms < 0) {
+            cout << "Cannot accept negative numbers, please try again.\n";
+            cin.clear();
+            cin.ignore(100, '\n');
         } else {
-            sumSquares = 0;
-            cout << SumOfSquaresDescending(numTerms, sumSquares);
+            total = SumOfSquaresDescending(numTerms);
+            cout << " = " << total;
             cout << "\n";
         }
     } while(exitMenu == false);
