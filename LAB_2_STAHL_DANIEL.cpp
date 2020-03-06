@@ -21,10 +21,10 @@ void PresentMainMenu() {
     int userChoice = 0;
     
     while (userChoice != 4) {
-        cout << "Main Menu\n" << "1. Raise the power of a number\n" << "2. Sum of squares ascending\n" << "3. Sum of squares descending\n" << "4. Quit program\n";
+        cout << "Main Menu\n" << "1. Raise the power of a number\n" << "2. Sum of squares ascending\n" << "3. Sum of squares descending\n" << "4. Quit program\n" << "Enter you selection: ";
         
         cin >> userChoice;
-        cout << "\n";
+        //cout << "\n";
         
         if (!cin || userChoice < 1 || userChoice > 4) {
             cin.clear();
@@ -98,7 +98,7 @@ void RunRaisePowerMenu() {
     bool exitMenu = false;
     
     do {
-        cout << "Enter base number: (enter any letter to go back to the menu)\n";
+        cout << "\nEnter base number: (enter any letter to go back to the menu)\n";
         cin >> base;
         
         if (!cin) {
@@ -121,7 +121,7 @@ void RunAscendingMenu() {
     int total;
     
     do {
-        cout << "Enter number of terms to add last\n(enter a letter to go back to the menu)\n";
+        cout << "\nEnter number of terms to add last\n(enter a letter to go back to the menu)\n";
         cin >> numTerms;
         
         if (!cin) {
@@ -129,7 +129,7 @@ void RunAscendingMenu() {
             cin.ignore(100, '\n');
             exitMenu = true;
         } else if (numTerms < 0) {
-            cout << "Cannot accept negative numbers, please try again.\n";
+            cout << "\nCannot accept negative numbers, please try again.\n";
             cin.clear();
             cin.ignore(100, '\n');
         } else {
@@ -146,7 +146,7 @@ void RunDescendingMenu() {
     int total;
     
     do {
-        cout << "Enter number of terms to add at first\n(enter a letter to go back to the menu)\n";
+        cout << "\nEnter number of terms to add at first\n(enter a letter to go back to the menu)\n";
         cin >> numTerms;
         
         if (!cin) {
@@ -154,7 +154,7 @@ void RunDescendingMenu() {
             cin.ignore(100, '\n');
             exitMenu = true;
         } else if (numTerms < 0) {
-            cout << "Cannot accept negative numbers, please try again.\n";
+            cout << "\nCannot accept negative numbers, please try again.\n";
             cin.clear();
             cin.ignore(100, '\n');
         } else {
@@ -164,3 +164,135 @@ void RunDescendingMenu() {
         }
     } while(exitMenu == false);
 }
+
+/*
+
+ Main Menu
+ 1. Raise the power of a number
+ 2. Sum of squares ascending
+ 3. Sum of squares descending
+ 4. Quit program
+ Enter you selection: 1
+ 
+ Enter base number: (enter any letter to go back to the menu)
+ 3
+ Enter power: 4
+ Answer = 81
+ 
+ Enter base number: (enter any letter to go back to the menu)
+ -5
+ Enter power: 3
+ Answer = -125
+ 
+ Enter base number: (enter any letter to go back to the menu)
+ -3
+ Enter power: -4
+ Answer = 0.0123457
+ 
+ Enter base number: (enter any letter to go back to the menu)
+ 3
+ Enter power: -6
+ Answer = 0.00137174
+ 
+ Enter base number: (enter any letter to go back to the menu)
+ 7
+ Enter power: 0
+ Answer = 1
+ 
+ Enter base number: (enter any letter to go back to the menu)
+ 0
+ Enter power: -4
+ 
+ Answer = Undefined, can't divide by 0
+ 
+ Main Menu
+ 1. Raise the power of a number
+ 2. Sum of squares ascending
+ 3. Sum of squares descending
+ 4. Quit program
+ Enter you selection: 2
+ 
+ Enter number of terms to add last
+ (enter a letter to go back to the menu)
+ 4
+ 1 + (2*2) + (3*3) + (4*4) = 30
+ 
+ Enter number of terms to add last
+ (enter a letter to go back to the menu)
+ 8
+ 1 + (2*2) + (3*3) + (4*4) + (5*5) + (6*6) + (7*7) + (8*8) = 204
+ 
+ Enter number of terms to add last
+ (enter a letter to go back to the menu)
+ 3
+ 1 + (2*2) + (3*3) = 14
+ 
+ Enter number of terms to add last
+ (enter a letter to go back to the menu)
+ r
+ Main Menu
+ 1. Raise the power of a number
+ 2. Sum of squares ascending
+ 3. Sum of squares descending
+ 4. Quit program
+ Enter you selection: 3
+ 
+ Enter number of terms to add at first
+ (enter a letter to go back to the menu)
+ 5
+ (5*5) + (4*4) + (3*3) + (2*2) + 1 = 55
+ 
+ Enter number of terms to add at first
+ (enter a letter to go back to the menu)
+ 3
+ (3*3) + (2*2) + 1 = 14
+ 
+ Enter number of terms to add at first
+ (enter a letter to go back to the menu)
+ 7
+ (7*7) + (6*6) + (5*5) + (4*4) + (3*3) + (2*2) + 1 = 140
+ 
+ Enter number of terms to add at first
+ (enter a letter to go back to the menu)
+ r
+ Main Menu
+ 1. Raise the power of a number
+ 2. Sum of squares ascending
+ 3. Sum of squares descending
+ 4. Quit program
+ Enter you selection: 2
+ 
+ Enter number of terms to add last
+ (enter a letter to go back to the menu)
+ -4
+ 
+ Cannot accept negative numbers, please try again.
+ 
+ Enter number of terms to add last
+ (enter a letter to go back to the menu)
+ r
+ Main Menu
+ 1. Raise the power of a number
+ 2. Sum of squares ascending
+ 3. Sum of squares descending
+ 4. Quit program
+ Enter you selection: 3
+ 
+ Enter number of terms to add at first
+ (enter a letter to go back to the menu)
+ -7
+ 
+ Cannot accept negative numbers, please try again.
+ 
+ Enter number of terms to add at first
+ (enter a letter to go back to the menu)
+ r
+ Main Menu
+ 1. Raise the power of a number
+ 2. Sum of squares ascending
+ 3. Sum of squares descending
+ 4. Quit program
+ Enter you selection: 4
+ Program ended with exit code: 0
+ 
+*/
